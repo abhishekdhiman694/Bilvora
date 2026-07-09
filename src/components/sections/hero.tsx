@@ -99,7 +99,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal variant="up" delay={1.35} duration={0.9}>
-            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+            <div className="mt-10 flex w-full max-w-md flex-col items-center gap-4 sm:max-w-none sm:flex-row sm:justify-center">
               <PremiumButton
                 onClick={() => {
                   trackEvent("cta_click", { cta: "hero_book_call" });
@@ -107,11 +107,18 @@ export function Hero() {
                 }}
                 size="lg"
                 icon={false}
+                className="w-full sm:w-auto"
               >
                 <CalendarCheck className="size-4" aria-hidden />
                 Book a Free Discovery Call
               </PremiumButton>
-              <PremiumButton href="#work" size="lg" variant="secondary" icon={false}>
+              <PremiumButton
+                href="#work"
+                size="lg"
+                variant="secondary"
+                icon={false}
+                className="w-full sm:w-auto"
+              >
                 <Sparkles className="size-4 text-electric-soft" aria-hidden />
                 View our work
               </PremiumButton>

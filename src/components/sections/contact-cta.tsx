@@ -66,7 +66,7 @@ export function ContactCTA() {
           <motion.div
             animate={{ scale: [1, 1.015, 1] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
+            className="mt-10 flex w-full max-w-md flex-col items-center gap-4 sm:max-w-none sm:flex-row sm:justify-center"
           >
             <PremiumButton
               onClick={() => {
@@ -75,6 +75,7 @@ export function ContactCTA() {
               }}
               size="lg"
               icon={false}
+              className="w-full sm:w-auto"
             >
               <CalendarCheck className="size-4" aria-hidden />
               Book a Free Discovery Call
@@ -87,6 +88,7 @@ export function ContactCTA() {
               size="lg"
               variant="secondary"
               icon={false}
+              className="w-full sm:w-auto"
             >
               <MessageSquare className="size-4 text-electric-soft" aria-hidden />
               Send a Message

@@ -82,7 +82,9 @@ export function PremiumButton({
           }}
         />
       ) : null}
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10 inline-flex items-center justify-center gap-2">
+        {children}
+      </span>
       {icon ? (
         <ArrowUpRight className="relative z-10 size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       ) : null}
