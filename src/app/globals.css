@@ -1,26 +1,341 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   BILVORA DESIGN SYSTEM
+   Premium dark foundation — rich blacks, electric blue / violet
+   glows, glass surfaces, editorial type scale.
+   ============================================================ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+  --font-serif: var(--font-instrument-serif);
+
+  /* Bilvora brand palette */
+  --color-void: var(--void);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-2: var(--charcoal-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-electric: var(--electric);
+  --color-electric-soft: var(--electric-soft);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-glow-purple: var(--glow-purple);
+  --color-hairline: var(--hairline);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-marquee: marquee 36s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root,
+.dark {
+  /* Core neutrals */
+  --void: #030304;
+  --charcoal: #0a0a0e;
+  --charcoal-2: #101014;
+  --ink: #f4f4f6;
+  --ink-muted: #9d9da8;
+  --ink-faint: #7e7e86; /* WCAG AA: ~5.1:1 against --void for normal text */
+  --hairline: rgba(244, 244, 246, 0.09);
+
+  /* Brand accents */
+  --electric: #4d7dff;
+  --electric-soft: #8fb0ff;
+  --violet: #8b5cf6;
+  --violet-soft: #b79cfb;
+  --glow-purple: #c084fc;
+
+  --background: var(--void);
+  --foreground: var(--ink);
+  --card: var(--charcoal-2);
+  --card-foreground: var(--ink);
+  --popover: var(--charcoal-2);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--void);
+  --secondary: var(--charcoal-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--charcoal-2);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--charcoal-2);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--electric);
+  --chart-1: var(--electric);
+  --chart-2: var(--violet);
+  --chart-3: var(--glow-purple);
+  --chart-4: var(--electric-soft);
+  --chart-5: var(--violet-soft);
+  --radius: 0.75rem;
+  --sidebar: var(--charcoal);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--electric);
+  --sidebar-primary-foreground: var(--void);
+  --sidebar-accent: var(--charcoal-2);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--electric);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans scroll-smooth;
+    color-scheme: dark;
+  }
+
+  /* Keep anchored sections clear of the fixed header when jumped to via
+     hash links (nav, skip link, footer, etc). */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01" 1, "cv01" 1;
+  }
+
+  ::selection {
+    background: var(--electric);
+    color: var(--void);
+  }
+
+  /* Only hide the native cursor when our custom cursor will actually
+     render (fine pointer + motion allowed) — otherwise visitors are
+     left with no cursor at all. */
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    body,
+    a,
+    button,
+    [role="button"] {
+      cursor: none;
+    }
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--electric-soft);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Editorial type helpers */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(
+      100deg,
+      var(--ink) 20%,
+      var(--electric-soft) 55%,
+      var(--violet-soft) 80%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-static {
+    background-image: linear-gradient(100deg, var(--electric) 10%, var(--violet) 60%, var(--glow-purple) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  /* Glass surfaces */
+  .glass {
+    background: linear-gradient(
+      165deg,
+      rgba(244, 244, 246, 0.06),
+      rgba(244, 244, 246, 0.015)
+    );
+    border: 1px solid var(--hairline);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .glass-strong {
+    background: linear-gradient(
+      165deg,
+      rgba(244, 244, 246, 0.1),
+      rgba(244, 244, 246, 0.03)
+    );
+    border: 1px solid rgba(244, 244, 246, 0.14);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+  }
+
+  /* Fixed header specifically: deliberately no backdrop-filter. Chromium can
+     fail to composite backdrop-filter correctly over heavily layered/
+     animated content sitting underneath a fixed element, intermittently
+     leaving raw page content readable straight through the bar. A solid
+     near-opaque background has no such failure mode. */
+  .glass-header {
+    background: rgba(3, 3, 4, 0.98);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* Hairline borders / dividers */
+  .border-hairline {
+    border-color: var(--hairline);
+  }
+
+  /* Glows */
+  .glow-electric {
+    box-shadow: 0 0 0 1px rgba(77, 125, 255, 0.25), 0 20px 60px -20px rgba(77, 125, 255, 0.45);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25), 0 20px 60px -20px rgba(139, 92, 246, 0.45);
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 80px rgba(77, 125, 255, 0.35);
+  }
+
+  /* Noise texture overlay */
+  .noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .bg-dot-grid {
+    background-image: radial-gradient(rgba(244, 244, 246, 0.14) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Breathing background blobs — slow, organic, GPU-only transforms */
+  @keyframes breathe-a {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(3%, -4%, 0) scale(1.1);
+    }
+  }
+
+  @keyframes breathe-b {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(-4%, 3%, 0) scale(1.06);
+    }
+  }
+
+  @keyframes breathe-c {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(2%, 3%, 0) scale(1.14);
+    }
+  }
+
+  .animate-breathe-a {
+    animation: breathe-a 19s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: transform;
+  }
+
+  .animate-breathe-b {
+    animation: breathe-b 24s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: transform;
+  }
+
+  .animate-breathe-c {
+    animation: breathe-c 29s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-breathe-a,
+    .animate-breathe-b,
+    .animate-breathe-c {
+      animation: none;
+    }
+  }
 }
