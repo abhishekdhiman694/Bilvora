@@ -40,15 +40,17 @@ export function AICore({
     setCanRender(true);
   }, []);
 
-  // Fully unmount the canvas (and let R3F dispose every GPU resource) the
-  // moment it scrolls out of view, and only remount once it's back.
+  // Fully unmount the canvas (and let R3F dispose every GPU resource) once
+  // it's well out of view, and mount it *before* it scrolls into view (a
+  // generous rootMargin) so WebGL/shader setup finishes ahead of time
+  // instead of visibly popping in after the user reaches it.
   useEffect(() => {
     if (!canRender) return;
     const el = containerRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.1 },
+      { threshold: 0, rootMargin: "50% 0px 50% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
