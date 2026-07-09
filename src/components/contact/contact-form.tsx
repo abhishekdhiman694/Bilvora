@@ -41,7 +41,8 @@ const initialState: FormState = {
 type Status = "idle" | "submitting" | "success" | "error";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "adb4df4f-ac56-4dd7-9f9d-2d7187618f19";
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
 function fieldClasses(hasError: boolean) {
