@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bilvora
 
-## Getting Started
+Marketing site for a software studio that designs and builds web and mobile products for clients.
 
-First, run the development server:
+Built as a single high-polish landing experience — 3D hero, scroll-driven motion throughout, and the SEO and analytics groundwork a site that has to actually generate enquiries needs.
+
+---
+
+## What's on the page
+
+The site is one long scroll, assembled from discrete sections:
+
+| Section | Purpose |
+|---|---|
+| Hero | The opening statement, over a live 3D scene |
+| Services | What the studio takes on |
+| AI showcase | The AI work specifically |
+| Featured projects | Selected client work |
+| Process | How an engagement runs, start to finish |
+| Technologies | The stack the studio builds on |
+| Trusted by | Client logos |
+| Testimonials | Client quotes |
+| Why Bilvora | The argument for choosing them |
+| FAQ | The questions that come up before someone books |
+| Contact | Form plus inline Calendly booking |
+
+---
+
+## Notable pieces
+
+**A real 3D hero.** An animated AI core rendered with Three.js through React Three Fiber and Drei, not a video loop or a static render.
+
+**Motion as a system, not decoration.** Reusable primitives — `reveal`, `mask-reveal`, `split-text`, `count-up`, `tilt-card` — composed with GSAP and Motion, so every section animates from the same vocabulary instead of one-off effects. Lenis handles smooth scrolling underneath.
+
+**SEO done properly.** Generated `sitemap.ts` and `robots.ts`, JSON-LD structured data, dynamic OpenGraph images rendered at the edge via `opengraph-image.tsx`, and a web app manifest.
+
+**Analytics that measure attention.** Beyond page views, a scroll-depth tracker records how far down the page visitors actually get — which is the number that tells you whether the middle sections are working.
+
+**Booking without a redirect.** Calendly embedded inline, so an interested visitor books in place rather than being handed off to another domain.
+
+**Every state designed.** Dedicated `loading`, `error`, `global-error` and `not-found` routes, plus a custom cursor loader — the states most marketing sites leave at the framework default.
+
+---
+
+## Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS + shadcn/ui + Base UI |
+| 3D | Three.js · React Three Fiber · Drei |
+| Motion | GSAP · Motion · Lenis |
+| Icons | Lucide · React Icons |
+
+---
+
+## Running it locally
 
 ```bash
+git clone https://github.com/abhishekdhiman694/Bilvora.git
+cd Bilvora
+npm install
+cp .env.example .env.local   # fill in the values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project layout
 
-## Learn More
+```
+src/
+├── app/
+│   ├── page.tsx              composes the sections
+│   ├── layout.tsx            fonts, smooth scroll, analytics, JSON-LD
+│   ├── opengraph-image.tsx   OG images generated per-request
+│   ├── sitemap.ts
+│   ├── robots.ts
+│   ├── manifest.ts
+│   └── loading / error / global-error / not-found
+├── components/
+│   ├── sections/             hero, services, process, faq, ...
+│   ├── three/                the 3D AI core scene
+│   ├── motion/               reveal, split-text, count-up, tilt-card
+│   ├── layout/               container, glass panel, gradient mesh, noise
+│   ├── analytics/            page + scroll-depth tracking
+│   ├── contact/              form and inline Calendly
+│   └── seo/                  JSON-LD
+└── lib/
+    ├── seo.ts
+    ├── analytics.ts
+    ├── calendly.ts
+    ├── motion.ts
+    └── data.ts               section content
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Abhishek Dhiman** — Founder at [Leadvox AI](https://leadvoxai.com)
+[GitHub](https://github.com/abhishekdhiman694) · [LinkedIn](https://www.linkedin.com/in/abhishek-dhiman-0a7276259)
