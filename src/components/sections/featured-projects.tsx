@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/layout/container";
@@ -19,39 +20,50 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], [-36, 36]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [-24, 24]);
 
   return (
     <div ref={ref} className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
       <div
-        className={`relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-hairline bg-charcoal-2 ${
+        className={`group relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-hairline bg-charcoal-2 ${
           reversed ? "md:order-2" : ""
         }`}
       >
         <motion.div
           aria-hidden
           style={{ y: imageY }}
-          className="absolute inset-[-10%]"
+          className="absolute inset-[-8%] overflow-hidden"
         >
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                index % 2 === 0
-                  ? "radial-gradient(circle at 30% 20%, rgba(77,125,255,0.28), transparent 60%), radial-gradient(circle at 80% 90%, rgba(139,92,246,0.22), transparent 55%)"
-                  : "radial-gradient(circle at 80% 10%, rgba(139,92,246,0.28), transparent 60%), radial-gradient(circle at 20% 90%, rgba(77,125,255,0.22), transparent 55%)",
-            }}
-          />
+          {project.image ? (
+            <div className="relative h-full w-full">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                priority={index === 0}
+                className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              {/* Theme-matching subtle dark ambient vignette */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/20 to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-void/10 mix-blend-multiply" />
+            </div>
+          ) : (
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  index % 2 === 0
+                    ? "radial-gradient(circle at 30% 20%, rgba(77,125,255,0.28), transparent 60%), radial-gradient(circle at 80% 90%, rgba(139,92,246,0.22), transparent 55%)"
+                    : "radial-gradient(circle at 80% 10%, rgba(139,92,246,0.28), transparent 60%), radial-gradient(circle at 20% 90%, rgba(77,125,255,0.22), transparent 55%)",
+              }}
+            />
+          )}
         </motion.div>
 
-        <span className="absolute -bottom-10 -left-4 font-serif text-[10rem] italic leading-none text-white/[0.06] md:text-[13rem]">
+        <span className="pointer-events-none absolute -bottom-10 -left-4 font-serif text-[10rem] italic leading-none text-white/[0.08] select-none md:text-[13rem]">
           {project.index}
         </span>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="rounded-full border border-white/15 bg-void/40 px-5 py-2 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-ink-faint">
-            Case study visual — reserved
-          </span>
-        </div>
 
         {/* Curtain wipe reveal */}
         <motion.div
@@ -61,7 +73,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.1, ease: easeImage }}
           style={{ originX: reversed ? 0 : 1 }}
-          className="absolute inset-0 z-10 bg-charcoal"
+          className="absolute inset-0 z-10 bg-charcoal pointer-events-none"
         />
       </div>
 

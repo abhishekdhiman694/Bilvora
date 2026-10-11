@@ -227,6 +227,7 @@ export const projects = [
     description:
       "A multilingual voice concierge handling 40,000+ guest calls a month for a luxury hotel group, cutting front-desk load by 61%.",
     metric: "61% reduction in call load",
+    image: "/projects/aria.jpg",
   },
   {
     index: "02",
@@ -235,6 +236,7 @@ export const projects = [
     description:
       "A multi-tenant financial operations platform built for scale — from reconciliation to reporting in one interface.",
     metric: "$2.1B processed annually",
+    image: "/projects/ledger.jpg",
   },
   {
     index: "03",
@@ -243,6 +245,7 @@ export const projects = [
     description:
       "A bespoke CRM rebuilt around how a 400-person sales org actually sells, replacing three disconnected tools.",
     metric: "3 tools consolidated into 1",
+    image: "/projects/northstar.jpg",
   },
   {
     index: "04",
@@ -251,6 +254,7 @@ export const projects = [
     description:
       "Real-time fleet and operations visibility for a logistics network spanning 12 countries.",
     metric: "12 countries, one view",
+    image: "/projects/pulse.jpg",
   },
 ];
 
