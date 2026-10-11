@@ -21,7 +21,7 @@ export default function Home() {
       <JsonLd data={servicesJsonLd(services)} />
       <JsonLd data={faqJsonLd(faqs)} />
       <Header />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 overflow-x-clip">
         <Hero />
         <TrustedBy />
         <Services />
